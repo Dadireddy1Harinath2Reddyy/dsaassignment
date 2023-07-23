@@ -1,0 +1,676 @@
+Question 1::
+
+import java.util.Arrays;
+
+public class CumulativeMultipleArray {
+    public static void main(String[] args) {
+        int[] arrNum = {5, 3, 4, 2, 0, 8};
+        calculateCumulativeMultiple(arrNum);
+        System.out.println("arrNum = " + Arrays.toString(arrNum));
+    }
+
+    public static void calculateCumulativeMultiple(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            try {
+                
+                if (arr[i] != 0) {
+                    arr[i] = arr[i - 1] * arr[i];
+                } else {
+                    
+                    for (int j = i; j < arr.length; j++) {
+                        arr[j] = 0;
+                    }
+                    break;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Array index out of bounds exception occurred!");
+                // Handle the exception here if needed
+            }
+        }
+    }
+}
+
+
+
+Question 2 :::: 
+
+
+import java.util.Arrays;
+
+public class CumulativeMultipleArray {
+    public static void main(String[] args) {
+        int[] arrNum = {5, 3, 4, 2, 0, 8};
+        calculateCumulativeMultiple(arrNum);
+        System.out.println("arrNum = " + Arrays.toString(arrNum));
+    }
+
+    public static void calculateCumulativeMultiple(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            try {
+                if (arr[i] != 0) {
+                    arr[i] = arr[i - 1] * arr[i];
+                } else {
+                  
+                    for (int j = i; j < arr.length; j++) {
+                        arr[j] = 0;
+                    }
+                    break;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Array index out of bounds exception occurred!");
+      
+            }
+        }
+    }
+}
+
+
+Question 3 ::
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SingularSocksCount {
+
+    public static void main(String[] args) {
+        int[] arrNum = {10, 20, 20, 10, 10, 30, 50, 10, 20};
+        int singularSocksCount = countSingularSocks(arrNum);
+        System.out.println("Count of singular socks = " + singularSocksCount);
+    }
+
+    public static int countSingularSocks(int[] arrNum) {
+        Map<Integer, Integer> sockCounts = new HashMap<>();
+
+        // Count the occurrence of each sock ID
+        for (int sock : arrNum) {
+            sockCounts.put(sock, sockCounts.getOrDefault(sock, 0) + 1);
+        }
+
+        int singularSocksCount = 0;
+
+        // Find the count of singular socks
+        for (int count : sockCounts.values()) {
+            if (count % 2 != 0) {
+                singularSocksCount++;
+            }
+        }
+
+        return singularSocksCount;
+    }
+}
+
+
+Question  4:::
+ import java.util.Scanner;
+
+public class NegativeSubarray {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        int count = countNegativeSubarrays(arr);
+        System.out.println(count);
+    }
+
+    public static int countNegativeSubarrays(int[] arr) {
+        int count = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+                if (sum < 0) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+
+Questoin 5 :: 
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+class Node {
+	int key;
+	Node next;
+
+	public Node(int key) {
+		this.key = key;
+		next = null;
+	}
+}
+
+public class Main {
+
+	public static Node newNode(int key) {
+		return new Node(key);
+	}
+
+
+	public static void main(String[] args) {
+		
+		Node a = new Node(5);
+		a.next = new Node(10);
+		a.next.next = new Node(15);
+		a.next.next.next = new Node(40);
+
+		Node b = new Node(2);
+		b.next = new Node(3);
+		b.next.next = new Node(20);
+
+		List<Integer> v = new ArrayList<>();
+		while (a != null) {
+			v.add(a.key);
+			a = a.next;
+		}
+
+		while (b != null) {
+			v.add(b.key);
+			b = b.next;
+		}
+
+		Collections.sort(v);
+		Node result = new Node(-1);
+		Node temp = result;
+		for (int i = 0; i < v.size(); i++) {
+			result.next = new Node(v.get(i));
+			result = result.next;
+		}
+
+		temp = temp.next;
+		System.out.print("Resultant Merge Linked List is : ");
+		while (temp != null) {
+			System.out.print(temp.key + " ");
+			temp = temp.next;
+		}
+	}
+}
+Question 6::: 
+// Java program to remove duplicates from unsorted
+// linked list
+
+class LinkedList {
+
+	static Node head;
+
+	static class Node {
+
+		int data;
+		Node next;
+
+		Node(int d)
+		{
+			data = d;
+			next = null;
+		}
+	}
+
+	/* Function to remove duplicates from an
+	unsorted linked list */
+	void remove_duplicates()
+	{
+		Node ptr1 = null, ptr2 = null, dup = null;
+		ptr1 = head;
+
+		/* Pick elements one by one */
+		while (ptr1 != null && ptr1.next != null) {
+			ptr2 = ptr1;
+
+			/* Compare the picked element with rest
+				of the elements */
+			while (ptr2.next != null) {
+
+				/* If duplicate then delete it */
+				if (ptr1.data == ptr2.next.data) {
+
+					/* sequence of steps is important here
+					*/
+					ptr2.next = ptr2.next.next;
+					System.gc();
+				}
+				else /* This is tricky */ {
+					ptr2 = ptr2.next;
+				}
+			}
+			ptr1 = ptr1.next;
+		}
+	}
+
+	void printList(Node node)
+	{
+		while (node != null) {
+			System.out.print(node.data + " ");
+			node = node.next;
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		LinkedList list = new LinkedList();
+		list.head = new Node(10);
+		list.head.next = new Node(12);
+		list.head.next.next = new Node(11);
+		list.head.next.next.next = new Node(11);
+		list.head.next.next.next.next = new Node(12);
+		list.head.next.next.next.next.next = new Node(11);
+		list.head.next.next.next.next.next.next
+			= new Node(10);
+
+		System.out.println(
+			"Linked List before removing duplicates : ");
+		list.printList(head);
+
+		list.remove_duplicates();
+		System.out.println("\n");
+		System.out.println(
+			"Linked List after removing duplicates : ");
+		list.printList(head);
+	}
+}
+// This code has been contributed by Mayank Jaiswal
+
+
+Question 7::: 
+class Solution {
+    public String longestPalindrome(String s) {
+       int start = 0, end = 0;
+       for(int i = 0; i < s.length(); i ++) {
+           char c = s.charAt(i);
+           int left = i;
+           int right = i;
+           while(left >= 0 && s.charAt(left) == c) left --;
+           while(right < s.length() && s.charAt(right) == c) right ++;
+           while(left >= 0 && right < s.length()) {
+               if(s.charAt(left) != s.charAt(right)) break;
+               left --;
+               right ++;
+           }
+           left += 1;
+           if(end - start < right - left) {
+               start = left;
+               end = right;
+           }
+       } 
+       return s.substring(start, end);
+    }
+}
+
+question 8::: 
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+
+    while(sc.hasNext()){
+    String s = sc.next();
+    System.out.println(valid(s));
+
+    }
+
+}
+
+public static boolean valid(String s){
+    Stack <Character> st = new Stack<>();
+    int i=0;
+    while(i<s.length()){
+        if(s.charAt(i)=='{'|| s.charAt(i)=='('|| s.charAt(i)=='['){
+            st.push(s.charAt(i));
+        }
+        else{
+            if(st.isEmpty()){
+                return false;
+            }
+            else{
+                if((st.peek()=='{'&& s.charAt(i)=='}')||(st.peek()=='['&& s.charAt(i)==']')|| (st.peek()=='('&& s.charAt(i)==')')){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        i++;
+    }
+    return st.isEmpty();
+} 
+
+question 9::: 
+
+import java.util.*;
+    public class test {
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            Deque deque = new ArrayDeque<>();
+           ArrayList<Integer> a=new ArrayList<>();
+            int n = in.nextInt();
+            int m = in.nextInt();
+
+            for (int i = 0; i < n; i++) {
+                int num = in.nextInt();
+                a.add(num);
+            }
+            
+           
+            int max=0;
+            for(int i=0;i<n-m+1;i++)
+            {int count=0;
+                for(int j=i;j<i+m;j++)
+                {
+                    if(!deque.contains(a.get(j)))
+                    {
+                        deque.offerLast(a.get(j));
+                        count++;
+                    }
+                }
+                if(count>max)
+                {
+                    max=count;
+                }
+                
+                deque.removeAll(deque);
+            }
+            System.out.println(max);
+            
+            
+            
+        }
+                
+    }
+
+
+Question 10 :: 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.*;
+/*
+ * Create the Student and Priorities classes here.
+ */
+ class StComparator implements Comparator<Student>
+ {
+     public int compare(Student a, Student b)
+     {
+          if(a.getCgpa() < b.getCgpa()){
+            return 1;
+        }
+        else if(a.getCgpa() > b.getCgpa()){
+            return -1;
+        }
+        else{
+            if(a.getName().compareTo(b.getName()) < 0){
+                return -1;
+            }
+            else if(a.getName().compareTo(b.getName()) > 0){
+                return 1;
+            }
+            else{
+                if(a.getId() < b.getId()){
+                    return -1;
+                }
+                else{
+                    return 1;
+                }
+                
+            }
+        }
+     }
+ }
+ class Priorities extends PriorityQueue<Student>
+ 
+ {
+      
+     List<Student> getStudents(List<String> events){
+         PriorityQueue<Student> students = new PriorityQueue<Student>(events.size(), new StComparator());
+        List<Student> st=new ArrayList<>();
+         for(int i=0;i<events.size();i++)
+         {
+             
+             if(events.get(i).equals("SERVED"))
+             {
+                students.poll();
+                 
+             }
+             else{
+                 String[] e=events.get(i).split(" ");
+                 if(e[0].equals("ENTER"))
+                 {
+                     students.add(new Student(Integer.parseInt(e[3]),e[1],Double.parseDouble(e[2])));
+                 }
+             }
+             
+         }
+         st.addAll(students);
+         return st;
+         
+     }
+ }
+ class Student{
+     int id;
+     String name;
+     double cgpa;
+     Student(int id, String name,double cgpa)
+     {
+         this.id=id;
+         this.name=name;
+         this.cgpa=cgpa;
+         
+     }
+     public String getName()
+     {
+         return name;
+     }
+     public int getId()
+     {
+         return id;
+     }
+     public double getCgpa()
+     {
+         return cgpa;
+     }
+ }
+
+
+public class Solution {
+    private final static Scanner scan = new Scanner(System.in);
+    private final static Priorities priorities = new Priorities();
+    
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());    
+        List<String> events = new ArrayList<>();
+        
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+        
+        List<Student> students = priorities.getStudents(events);
+        
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st: students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+} 
+
+Question 11    :: 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.*;
+/*
+ * Create the Student and Priorities classes here.
+ */
+ class StComparator implements Comparator<Student>
+ {
+     public int compare(Student a, Student b)
+     {
+          if(a.getCgpa() < b.getCgpa()){
+            return 1;
+        }
+        else if(a.getCgpa() > b.getCgpa()){
+            return -1;
+        }
+        else{
+            if(a.getName().compareTo(b.getName()) < 0){
+                return -1;
+            }
+            else if(a.getName().compareTo(b.getName()) > 0){
+                return 1;
+            }
+            else{
+                if(a.getId() < b.getId()){
+                    return -1;
+                }
+                else{
+                    return 1;
+                }
+                
+            }
+        }
+     }
+ }
+ class Priorities extends PriorityQueue<Student>
+ 
+ {
+      
+     List<Student> getStudents(List<String> events){
+         PriorityQueue<Student> students = new PriorityQueue<Student>(events.size(), new StComparator());
+        List<Student> st=new ArrayList<>();
+         for(int i=0;i<events.size();i++)
+         {
+             
+             if(events.get(i).equals("SERVED"))
+             {
+                students.poll();
+                 
+             }
+             else{
+                 String[] e=events.get(i).split(" ");
+                 if(e[0].equals("ENTER"))
+                 {
+                     students.add(new Student(Integer.parseInt(e[3]),e[1],Double.parseDouble(e[2])));
+                 }
+             }
+             
+         }
+         st.addAll(students);
+         return st;
+         
+     }
+ }
+ class Student{
+     int id;
+     String name;
+     double cgpa;
+     Student(int id, String name,double cgpa)
+     {
+         this.id=id;
+         this.name=name;
+         this.cgpa=cgpa;
+         
+     }
+     public String getName()
+     {
+         return name;
+     }
+     public int getId()
+     {
+         return id;
+     }
+     public double getCgpa()
+     {
+         return cgpa;
+     }
+ }
+
+
+public class Solution {
+    private final static Scanner scan = new Scanner(System.in);
+    private final static Priorities priorities = new Priorities();
+    
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());    
+        List<String> events = new ArrayList<>();
+        
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+        
+        List<Student> students = priorities.getStudents(events);
+        
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st: students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+} 
+
+
+Question 12 ::: 
+
+
+class Solution {
+    public static int size1(ListNode head)
+    {
+        int size=0;
+        while(head!=null)
+        {
+            head=head.next;
+            size++;
+        }
+        return size;
+    }
+    public ListNode reverseKGroup(ListNode head, int k) {
+        
+     ListNode curr=head;
+       ListNode prev=null;
+       ListNode nxt=curr;
+       int count=0;
+       int size=0;
+      
+
+      
+      
+
+        if(size1(head)<k && nxt!=null)
+        {
+           
+           return nxt;
+        }
+        else
+        {
+       while(curr!=null && count<k )
+       {
+           nxt=curr.next;
+           curr.next=prev;
+           prev=curr;
+           curr=nxt;
+           count++;
+       }
+       if(nxt!=null)
+       head.next=reverseKGroup(nxt,k);
+        }
+       return prev;
+        
+        
+    }
+}
